@@ -1,5 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import NavBar from "@/components/Navbar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -11,6 +13,7 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
+// Children components are still server components as Navbar does not import them
 export default function RootLayout({
   children,
 }: {
@@ -20,7 +23,8 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center">
-          {children}
+          <NavBar />
+          <AntdRegistry>{children}</AntdRegistry>
         </main>
       </body>
     </html>
