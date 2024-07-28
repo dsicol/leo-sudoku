@@ -1,12 +1,13 @@
 'use client';
 import { createClient } from '@/utils/supabase/client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Puzzle } from '../page';
 import { useParams } from 'next/navigation';
-import { parseSudoku } from '@/utils/helpers/parseSudoku';
 import SudokuBoard from '@/components/Sudoku/SudokuBoard';
 import { SudokuProvider } from '@/app/contexts/SudokuContext';
 import SudokuControls from '@/components/Sudoku/SudokuControls';
+
+const SUDOKU_GAME_ERROR_MESSAGE: string = "Error downloading puzzle:";
 
 const fetchSudokuGame = async (sudokuId: string): Promise<Puzzle | null> => {
   const supabase = createClient();
@@ -17,7 +18,7 @@ const fetchSudokuGame = async (sudokuId: string): Promise<Puzzle | null> => {
     .single();
   
   if (error) {
-    console.error("Error fetching sudoku game: ", error)
+    console.error(`${SUDOKU_GAME_ERROR_MESSAGE} ${error}`);
     return null;
   }
 
@@ -40,12 +41,11 @@ const SudokuGame = () => {
           }
         })
         .catch(error => {
-          console.error('Error fetching Sudoku game:', error);
+          console.error(`${SUDOKU_GAME_ERROR_MESSAGE} ${error}`);
           setSudokuGameString('');
         });
     }
   }, [sudokuId]);
-
 
   return (
     <SudokuProvider>
@@ -55,6 +55,6 @@ const SudokuGame = () => {
       </>
     </SudokuProvider>
   );
-}
+};
 
 export default SudokuGame;

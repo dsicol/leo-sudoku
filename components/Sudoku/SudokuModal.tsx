@@ -8,22 +8,20 @@ type SudokuModalProps = {
   isSolved: boolean;
 }
 
-const SOLVED_TEXT = "Congratulations on completing the puzzle!\nYou may redirect to the home page to explore more puzzles";
-
-const UNSOLVED_TEXT = "Oops, you have not completed the puzzle.\nKeep trying!\nAlternatively, you may press back and explore other puzzles too";
+const SOLVED_TEXT: string = "Congratulations on completing the puzzle!\nYou may redirect to the home page to explore more puzzles";
+const UNSOLVED_TEXT: string = "Oops, you have not completed the puzzle.\nKeep trying!\nAlternatively, you may press back and explore other puzzles too";
 
 const SudokuModal = ({ open, setOpen, isSolved }: SudokuModalProps) => {
   const router = useRouter();
 
-  const handleSolveOk = useCallback(() => {
+  const handleSolveOk = useCallback((): void => {
     if (!isSolved) {
-      setOpen(false)
-      return
+      setOpen(false);
     }
     router.push('/sudoku');
   }, [setOpen, isSolved]);
   
-  const handleCancel = useCallback(() => {
+  const handleCancel = useCallback((): void => {
     setOpen(false)
   }, [setOpen]);
   

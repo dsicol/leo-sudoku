@@ -16,7 +16,7 @@ const SudokuControls = ({ sudokuGameString }: { sudokuGameString: string }) => {
   const [open, setOpen] = useState<boolean>(false);
   const { board, setBoard } = useSudoku();
 
-  const hasEmptyCells = useMemo(() => {
+  const hasEmptyCells = useMemo((): boolean => {
     if (isEmptyBoard(board)) {
       return true;
     }
@@ -33,18 +33,18 @@ const SudokuControls = ({ sudokuGameString }: { sudokuGameString: string }) => {
     return false;
   }, [board]);
 
-  const isSolved = useMemo(() => validateSudoku(board) && !hasEmptyCells, [board, hasEmptyCells]);
+  const isSolved = useMemo((): boolean => validateSudoku(board) && !hasEmptyCells, [board, hasEmptyCells]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback((): void => {
     setOpen(true)
   }, [isSolved]);
 
-  const onReset = useCallback(() => {
+  const onReset = useCallback((): void => {
     const sudokuBoard = parseSudoku(sudokuGameString);
     setBoard(sudokuBoard);
   }, [sudokuGameString, setBoard]);
 
-  const handleButtonType = useMemo(() => isSolved ? ButtonType.Solved : ButtonType.Unsolved, [isSolved]);
+  const handleButtonType = useMemo((): ButtonType => isSolved ? ButtonType.Solved : ButtonType.Unsolved, [isSolved]);
 
   return (
     <>

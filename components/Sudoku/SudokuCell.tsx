@@ -6,9 +6,11 @@ type SudokuCellProps = {
   cellValue: CellValue;
   rowIndex: number;
   colIndex: number;
-}
+};
 
-const getBorderClasses = (rowIndex: number, colIndex: number) => {
+const baseClass: string = "bg-white flex items-center justify-center border border-black";
+
+const getBorderClasses = (rowIndex: number, colIndex: number): string => {
   const isTop = rowIndex % 3 === 0 && rowIndex !== 0;
   const isLeft = colIndex % 3 === 0 && colIndex !== 0;
   const isBottom = (rowIndex + 1) % 3 === 0 && rowIndex !== SUDOKU_ROW_LENGTH - 1;
@@ -23,11 +25,9 @@ const getBorderClasses = (rowIndex: number, colIndex: number) => {
 };
 
 
-const SudokuCell = ({ cellValue, rowIndex, colIndex, }: SudokuCellProps) => {
+const SudokuCell = ({ cellValue, rowIndex, colIndex }: SudokuCellProps) => {
   const { board, setBoard, validation } = useSudoku();
-  
-  const baseClass = "bg-white flex items-center justify-center border border-black";
-  const borderClasses = getBorderClasses(rowIndex, colIndex);
+  const borderClasses: string = getBorderClasses(rowIndex, colIndex);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, colIndex: number) => {
     const value = e.target.value;
@@ -40,7 +40,7 @@ const SudokuCell = ({ cellValue, rowIndex, colIndex, }: SudokuCellProps) => {
     }
   };
 
-  const isInvalidInput = useMemo(() => 
+  const isInvalidInput = useMemo((): boolean => 
     cellValue.value === 0, 
   [cellValue.value]);
 
@@ -61,6 +61,5 @@ const SudokuCell = ({ cellValue, rowIndex, colIndex, }: SudokuCellProps) => {
     </div>
   );
 };
-
 
 export default SudokuCell;

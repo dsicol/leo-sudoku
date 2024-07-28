@@ -67,6 +67,7 @@ export const isEmptyBoard = (board: CellValue[][]): boolean => {
 }
 
 const validateSudoku = (board: CellValue[][]): boolean => {
+  // Empty state, vacuously true
   if (isNil(board) || isEmptyBoard(board)) {
     return true;
   }

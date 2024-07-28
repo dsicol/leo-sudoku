@@ -6,7 +6,7 @@ export type CellValue = {
 };
 
 // Returns an array of rows containing the sudoku digits
-// Parses as integer to validate as number on client
+// Parses as a number so that we can validate as number on client
 export const parseSudoku = (sudokuString: string): CellValue[][] => {
   const sudokuGrid: CellValue[][] = [];
 

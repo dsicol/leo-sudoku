@@ -6,15 +6,23 @@ export type Puzzle = {
   puzzle: string;
 }
 
+const SUDOKU_LIST_ERROR_MESSAGE: string = "Error downloading puzzles";
+
 const getSudokuGames = async (): Promise<Puzzle[]> => {
   const supabase = createClient();
-  const { data: sudokuPuzzles } = await supabase.from("sudoku_puzzles").select("id, puzzle");
+  const { data: sudokuPuzzles, error } = await supabase.from("sudoku_puzzles").select("id, puzzle");
 
-  return sudokuPuzzles || [];
+  if (error) {
+    console.error(SUDOKU_LIST_ERROR_MESSAGE);
+
+    return [];
+  }
+
+  return sudokuPuzzles ?? [];
 }
 
 const SudokuList = async () => {
-  const sudokuList = await getSudokuGames();
+  const sudokuList: Puzzle[] = await getSudokuGames();
   
   return (
     <div className="w-full min-h-screen bg-gray-100 py-10">
@@ -32,6 +40,6 @@ const SudokuList = async () => {
       </div>
     </div>
   );
-}
+};
 
 export default SudokuList;

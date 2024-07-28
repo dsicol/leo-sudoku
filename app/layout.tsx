@@ -9,8 +9,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "Leo Sudoku",
+  description: "Level up your problem solving skills with these 5 puzzles",
 };
 
 // Children components are still server components as Navbar does not import them
@@ -29,4 +29,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
